@@ -1,0 +1,8 @@
+[
+  { "publicId": "cld-sample", "width": 1870, "height": 1250, "title": "Mountain lake", "lat": 46.6, "lng": 8.0 },
+  { "publicId": "cld-sample-2", "width": 1870, "height": 1250, "title": "Coastal cliffs", "lat": 38.7, "lng": -9.4 },
+  { "publicId": "cld-sample-3", "width": 1870, "height": 1250, "title": "Desert dunes", "lat": 23.4, "lng": 11.5 },
+  { "publicId": "cld-sample-4", "width": 1870, "height": 1250, "title": "Forest trail", "lat": 47.5, "lng": 8.7 },
+  { "publicId": "cld-sample-5", "width": 1870, "height": 1250, "title": "City lights" },
+  { "publicId": "sample", "width": 864, "height": 576, "title": "Honey bee", "lat": 50.1, "lng": 14.4 }
+]
