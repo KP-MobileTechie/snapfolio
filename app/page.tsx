@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import galleryJson from '@/data/gallery.json';
 import { parseManifest } from '@/lib/manifest';
 import { addUpload, isStorageAvailable, loadSession } from '@/lib/session';
@@ -9,6 +10,13 @@ import { MasonryGrid } from '@/components/MasonryGrid';
 import { Lightbox } from '@/components/Lightbox';
 import { TopBar, type View } from '@/components/TopBar';
 import { UploadZone } from '@/components/UploadZone';
+
+const MapView = dynamic(() => import('@/components/MapView'), {
+  ssr: false,
+  loading: () => (
+    <p className="py-24 text-center text-sm text-[var(--fg-dim)]">Loading map…</p>
+  ),
+});
 
 const curated = parseManifest(galleryJson);
 const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ?? '';
@@ -61,7 +69,7 @@ export default function Home() {
       {view === 'grid' ? (
         <MasonryGrid photos={photos} onOpen={setLightbox} />
       ) : (
-        <p className="py-24 text-center text-sm text-[var(--fg-dim)]">Map view lands next.</p>
+        <MapView photos={photos} onOpen={setLightbox} />
       )}
       {lightbox !== null && (
         <Lightbox
