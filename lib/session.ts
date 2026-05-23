@@ -43,7 +43,9 @@ export function loadSession(): Photo[] {
 
 export function addUpload(photo: Photo): void {
   try {
-    const uploads = [...loadSession(), photo];
+    const existing = loadSession();
+    if (existing.some((p) => p.publicId === photo.publicId)) return;
+    const uploads = [...existing, photo];
     localStorage.setItem(SESSION_KEY, JSON.stringify({ version: 1, uploads }));
   } catch {
     // storage unavailable — upload still lives in component state for this tab

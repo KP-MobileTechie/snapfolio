@@ -34,4 +34,10 @@ describe('loadSession', () => {
     );
     expect(loadSession()).toHaveLength(1);
   });
+
+  it('ignores duplicate publicIds', () => {
+    addUpload(photo);
+    addUpload(photo);
+    expect(loadSession()).toHaveLength(1);
+  });
 });

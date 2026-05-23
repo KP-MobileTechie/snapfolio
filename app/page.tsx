@@ -19,6 +19,7 @@ const MapView = dynamic(() => import('@/components/MapView'), {
 });
 
 const curated = parseManifest(galleryJson);
+const curatedIds = new Set(curated.map((p) => p.publicId));
 const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ?? '';
 const PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET ?? '';
 
@@ -36,11 +37,19 @@ export default function Home() {
     setSession(loadSession());
   }, []);
 
-  const photos = [...curated, ...session];
+  // Dedupe: re-uploading an identical file yields the same Cloudinary publicId,
+  // which would collide with curated entries or earlier session uploads.
+  const photos = [
+    ...curated,
+    ...session.filter(
+      (p, i, arr) =>
+        !curatedIds.has(p.publicId) && arr.findIndex((x) => x.publicId === p.publicId) === i,
+    ),
+  ];
 
   function handleUploaded(photo: Photo) {
     addUpload(photo);
-    setSession((s) => [...s, photo]);
+    setSession((s) => (s.some((p) => p.publicId === photo.publicId) ? s : [...s, photo]));
   }
 
   return (
