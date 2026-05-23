@@ -5,7 +5,7 @@ and drag-drop uploads that go straight from the browser to Cloudinary.
 
 <!-- TODO(manual): record demo GIF with ScreenToGif and replace this line -->
 
-**Live demo:** https://snapfolio.vercel.app <!-- update after deploy -->
+**Live demo:** https://snapfolio-eosin.vercel.app
 
 ## Features
 
