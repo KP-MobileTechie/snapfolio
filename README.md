@@ -9,12 +9,12 @@ and drag-drop uploads that go straight from the browser to Cloudinary.
 
 ## Features
 
-- 🧱 **Masonry grid** (pure CSS columns) with **blur-up loading** — a 24px blurred
+- 🧱 **Masonry grid** (pure CSS columns) with **blur-up loading**: a 24px blurred
   placeholder renders instantly, the real thumb fades in over it
-- 🗺 **Map view** (Leaflet) — every geo-tagged photo gets a marker; popups link into the lightbox
-- 📍 **EXIF GPS extraction** in the browser (exifr) — photos that know where they were taken
+- 🗺 **Map view** (Leaflet): every geo-tagged photo gets a marker; popups link into the lightbox
+- 📍 **EXIF GPS extraction** in the browser (exifr): photos that know where they were taken
   place themselves; a pin-picker covers the rest
-- ⬆️ **Direct-to-CDN uploads** via an unsigned Cloudinary preset — no backend, visitor uploads
+- ⬆️ **Direct-to-CDN uploads** via an unsigned Cloudinary preset: no backend, visitor uploads
   land in a sandbox folder and persist per-device in localStorage
 - 🔍 **Lightbox** with ←/→ keyboard nav, focus trap, full-res CDN upgrade
 - ♿ Keyboard operable throughout, `prefers-reduced-motion` respected
@@ -23,7 +23,7 @@ and drag-drop uploads that go straight from the browser to Cloudinary.
 
 Every image on the page is one Cloudinary master delivered through three on-the-fly CDN
 transforms (`lib/cloudinary.ts`): `w_24,e_blur:200` (instant placeholder), `w_600,c_limit`
-(grid thumb), `w_1600,c_limit` (lightbox) — all with `q_auto,f_auto` so the CDN picks
+(grid thumb), `w_1600,c_limit` (lightbox), all with `q_auto,f_auto` so the CDN picks
 format and quality per browser. The gallery itself is a static manifest (`data/gallery.json`)
 merged client-side with the visitor's own uploads from localStorage; uploads POST directly
 to Cloudinary's upload API with an unsigned preset, with GPS parsed from EXIF client-side
@@ -31,11 +31,11 @@ before the file ever leaves the machine.
 
 ## Decisions
 
-- **Static manifest over Admin-API routes** — the photo list changes when I curate it, which
+- **Static manifest over Admin-API routes**: the photo list changes when I curate it, which
   is a git commit, not a runtime query. Zero secrets, zero server code.
-- **CSS-columns masonry over a JS layout engine** — no measurement, no layout thrash, works
+- **CSS-columns masonry over a JS layout engine**: no measurement, no layout thrash, works
   with SSR. Trade-off: items order top-to-bottom per column, acceptable for a photo wall.
-- **Unsigned preset uploads** — visitor uploads are sandboxed to a folder with a size cap.
+- **Unsigned preset uploads**: visitor uploads are sandboxed to a folder with a size cap.
   The preset name being public is by design; the trade-off is documented abuse surface, the
   mitigation is folder isolation + per-device session scoping.
 
